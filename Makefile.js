@@ -40,8 +40,8 @@ var NODE = 'node ',	// intentional extra space
 	JS_DIRS = getSourceDirectories(),
 
 	// Files
-	SRC_FILES = ['lib/box.js', 'lib/event-target.js', 'lib/context.js', 'lib/application.js'],
-	TESTING_FILES = ['lib/box.js', 'lib/event-target.js', 'lib/application-stub.js', 'lib/test-service-provider.js'],
+	SRC_FILES = ['lib/exports/wrap-start.js', 'lib/box.js', 'lib/event-target.js', 'lib/context.js', 'lib/application.js', 'lib/exports/wrap-end.js'],
+	TESTING_FILES = ['lib/exports/wrap-start.js', 'lib/box.js', 'lib/event-target.js', 'lib/application-stub.js', 'lib/test-service-provider.js', 'lib/exports/wrap-end.js'],
 	JS_FILES = find(JS_DIRS).filter(fileType('js')).join(' '),
 	TEST_FILES = find('tests/').filter(fileType('js')).join(' ');
 
@@ -195,7 +195,7 @@ target.all = function() {
 
 target.lint = function() {
 	echo('Validating JavaScript files');
-	nodeExec('eslint', JS_FILES);
+	nodeExec('eslint', '--quiet', JS_FILES);
 };
 
 target.test = function() {
